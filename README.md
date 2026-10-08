@@ -82,6 +82,7 @@ dotnet build -c Release -p:BuzzDir="D:\Buzz"
 
 | Version | Changes |
 |---|---|
+| 1.1 | Fixes crackle (clusters of ticks on drum hits) under compression. The fast dB conversion used for the detector jumped by 1.76 dB just below every power of two, so the gain reduction stepped instantly each time the envelope crossed -6, -12, -18, -24 dBFS and so on (about 1.5 dB at 8:1). Both fast conversions now use cubics that are exact at their range ends: level to dB within 0.01 dB, dB to gain within 0.002 dB, with no steps. Average gain reduction is about 0.3 dB lower than in 1.0, so check the threshold on existing songs. |
 | 1.0 | First Buzz 1503 release, from Pedal Comp 1.3 for ReBuzz. Soft-knee fix: 1.3 applied double the gain reduction inside the knee, with a step at its top edge; the knee now joins the ratio line smoothly. Panel follows the window width, with level and gain-reduction history, a settings readout and a level dot on the transfer curve. net48 / x86 build. Muted input handled through the WM_READ flag (no stale-buffer replay). Meters and delay lines clear when the input stops. Text labels for parameters (Attack and Release show plain ms values: Buzz 1503's built-in ms label read 10 ms as 0.1 ms). Meter panel runs only while the parameter window is open. About entry in the right-click menu. |
 
 ---
